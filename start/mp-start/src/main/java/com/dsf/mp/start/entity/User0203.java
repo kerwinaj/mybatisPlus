@@ -1,24 +1,20 @@
 package com.dsf.mp.start.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 /**
- * 从 User 拷贝, 不同点是修改了 id, name, 类名
+ * 从 User 拷贝, 不同点是 类名,remark
  */
 @Data
 @TableName("user")
-public class User0202 {
+public class User0203 {
+    private Long id;
 
-    @TableId("id")
-    private Long userId;
-
-    @TableField("name")
-    private String realName;
+    private String name;
 
     private Integer age;
 
@@ -27,4 +23,7 @@ public class User0202 {
     private Long managerId;
 
     private LocalDateTime createTime;
+
+    @TableField(exist = false)
+    private String remark;
 }
