@@ -1,7 +1,7 @@
-完成了?
+# 完成了?
 完成一个小例子, 直接运行 com.dsf.mp.start.dao.Mp0201InsertTest.insert 就能看到这个例子的效果.
 
-想说明的点?
+# 想说明的点?
 1.配置日志的 level 和 pattern
 2.BaseMapper 其他方法(insert)的使用
 3.注意生成的sql中, email 字段是没有生成的, 因为默认策略就是null的情况下, 不会生成.
@@ -11,7 +11,7 @@ DEBUG==> Parameters: 1277989641583083522(Long), 刘明强(String), 31(Integer), 
 DEBUG<==    Updates: 1
 ```
 
-采坑点?
+# 采坑点?
 如果 application.yml 里的 logging.pattern 写错了, 写成
 ```$xslt
 console: %p%m%n
