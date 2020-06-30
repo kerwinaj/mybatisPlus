@@ -13,7 +13,7 @@ import java.util.List;
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes= StartApp.class)
-public class UserMapperTest {
+public class Mp0105Test {
     @Autowired
     UserMapper userMapper;
 
