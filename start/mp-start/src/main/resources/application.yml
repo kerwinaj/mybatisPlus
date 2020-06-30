@@ -5,3 +5,11 @@ spring:
     url: jdbc:mysql://localhost:3306/library?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
     password: 20200515
+
+# 配置日志
+logging:
+  level:
+    root: warn
+    com.dsf.mp.start.dao: trace
+  pattern:
+    console: '%p%m%n'
