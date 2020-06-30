@@ -1,5 +1,5 @@
 # 完成了?
-完成一个小例子, 直接运行 com.dsf.mp.start.dao.Mp0105Test.select 就能看到这个例子的效果.
+完成一个小例子(BaseMapper查询), 直接运行 com.dsf.mp.start.dao.Mp0105Test.select 就能看到这个例子的效果.
 
 # 想说明的点?
 1. 使用 BaseMapper, 继承它并定义一个接口;
