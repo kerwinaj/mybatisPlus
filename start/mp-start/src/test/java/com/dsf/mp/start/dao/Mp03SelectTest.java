@@ -45,7 +45,7 @@ public class Mp03SelectTest {
     @Test
     public void selectByMap() {
         Map<String, Object> map = new HashMap<>();
-        //map的key指代的是mysql表中的列名，并非java实体的属性名
+        //注意: map的key指代的是mysql表中的列名，并非java实体的属性名
         map.put("name", "张雨琪");
         map.put("manager_id", 1088248166370832385L);
         List<User> list = userMapper.selectByMap(map);
@@ -59,21 +59,23 @@ public class Mp03SelectTest {
     }
 
     /**
-     * 名字中包含雨，并且年龄小于40
+     * 1. 名字中包含雨，并且年龄小于40
      * SELECT * FROM `user`
      * WHERE `name` LIKE '%雨%' AND `age`< 40
      */
     @Test
     public void selectList_like_lt() {
+        // 注意: 工具类创建 Wrapper 的方法
 //        QueryWrapper<User> query = Wrappers.<User>query();
         QueryWrapper<User> query = new QueryWrapper<>();
+        // 注意: like和lt等方法中的第一个参数, 对应的都是mysql表中的列名!!
         query.like("name", "雨").lt("age", 40);
         List<User> list = userMapper.selectList(query);
         list.forEach(System.out::println);
     }
 
     /**
-     * 名字中包含雨，并且年龄大于等于20且小于等于40，并且email不为空
+     * 2. 名字中包含雨，并且年龄大于等于20且小于等于40，并且email不为空
      * SELECT * FROM `user`
      * WHERE `name` LIKE '%雨%' AND `age` <= 40 AND `age` >= 20 AND `email` IS NOT NULL
      */
@@ -86,7 +88,7 @@ public class Mp03SelectTest {
     }
 
     /**
-     * 姓赵或者年龄大于等于25，按照年龄降序排列，年龄相同则按照id升序排列
+     * 3. 姓赵或者年龄大于等于25，按照年龄降序排列，年龄相同则按照id升序排列
      * SELECT * FROM `user`
      * WHERE `name` LIKE '赵%' OR `age` >= 25 ORDER BY `age` DESC , `id` ASC;
      */
@@ -100,7 +102,7 @@ public class Mp03SelectTest {
     }
 
     /**
-     * 创建日期为2019年2月14日，且直属上级姓王
+     * 4. 创建日期为2019年2月14日，且直属上级姓王
      * SELECT * FROM `user`
      * WHERE DATE_FORMAT(create_time,'%Y-%m-%d')='2019-02-14'
      * AND manager_id IN (SELECT id FROM `user` WHERE `name` LIKE '王%')
@@ -108,14 +110,20 @@ public class Mp03SelectTest {
     @Test
     public void selectList_apply_inSql() {
         QueryWrapper<User> query = new QueryWrapper<>();
-        query.apply("DATE_FORMAT(create_time,'%Y-%m-%d')={0}", "2019-02-14")
+        query
+                // 注意: apply的这个方法会有sql注入的风险
+//                .apply("DATE_FORMAT(create_time,'%Y-%m-%d')='2019-02-14'")
+                // 简单的sql注入
+//                .apply("DATE_FORMAT(create_time,'%Y-%m-%d')='2019-02-14' or true or true")
+                .apply("DATE_FORMAT(create_time,'%Y-%m-%d')={0}", "2019-02-14")
             .inSql("manager_id", "SELECT id FROM `user` WHERE `name` LIKE '王%'");
+
         List<User> list = userMapper.selectList(query);
         list.forEach(System.out::println);
     }
 
     /**
-     * 姓王且（年龄小于40或邮箱不为空）
+     * 5. 姓王且（年龄小于40或邮箱不为空）
      * SELECT * FROM `user`
      * WHERE `name` LIKE '王%' AND (`age`< 40 OR `email` IS NOT NULL)
      */
@@ -129,7 +137,7 @@ public class Mp03SelectTest {
     }
 
     /**
-     * 姓王且或者（年龄小于40且年龄大于20且邮箱不为空）
+     * 6. 姓王且或者（年龄小于40且年龄大于20且邮箱不为空）
      * SELECT * FROM `user`
      * WHERE `name` LIKE '王%' OR (`age`< 40 AND `age` > 20  AND `email` IS NOT NULL)
      */
@@ -143,7 +151,7 @@ public class Mp03SelectTest {
     }
 
     /**
-     * （年龄小于40或邮箱不为空）且姓王
+     * 7. （年龄小于40或邮箱不为空）且姓王
      * SELECT * FROM `user`
      * WHERE (`age`< 40 OR `email` IS NOT NULL) AND `name` LIKE '王%'
      */
@@ -157,7 +165,7 @@ public class Mp03SelectTest {
     }
 
     /**
-     * 年龄为30,31,34,35
+     * 8. 年龄为30,31,34,35
      * SELECT * FROM `user` WHERE `age` IN (30,31,34,35);
      */
     @Test
@@ -169,7 +177,7 @@ public class Mp03SelectTest {
     }
 
     /**
-     * 返回只满足条件的一条（只调用最后一次，有sql注入的风险）
+     * 9. 返回只满足条件的一条（只调用最后一次，有sql注入的风险）
      * SELECT * FROM `user` WHERE `age` IN (30,31,34,35) LIMIT 1;
      */
     @Test
