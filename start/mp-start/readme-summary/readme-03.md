@@ -54,7 +54,7 @@ BaseMapper 的其他查询方法, 都会传入一个条件构造器( Wrapper 及
     IPage<Map<String, Object>> selectMapsPage(IPage<T> page, @Param("ew") Wrapper<T> queryWrapper);
 ```
 
-## 03-03
+## 03-03看完后的自我总结
 默认 Wrapper 里的各个方法(like, lt, between, isNotNull, in, apply, inSql), 默认都是用and进行连接的.
 如果想使用or, 就得用or()方法
 想使用大括号, 那就放在and()或or()或 nested()这个方法的参数中. (nested()应该是用在where条件中最开始就是大括号的情况)
