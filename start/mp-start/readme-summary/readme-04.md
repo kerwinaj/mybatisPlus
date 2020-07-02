@@ -31,6 +31,15 @@ BaseMapper 中的 selectPage 和 selectMapsPage, 主要的一个区别就是getR
 ## selectMyCustomer0202
 完成了 单表的分页查询, 是用自定义xml实现
 
+xml里的配置, 对应的正是dao中传过来的query参数, 如果没有这一段, 那么就是全表查, 没有where条件了!!
+```
+${ew.customSqlSegment}
+```
+
+## selectMyCustomer0202Self
+学习用exist实现的多表关联查询, 牛逼
+
+
 
 
 # 采坑点?
