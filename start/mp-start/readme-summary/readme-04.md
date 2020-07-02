@@ -2,7 +2,9 @@
 ## 04-01
 完成 BaseMapper查询 的2个例子(使用条件构造器的自定义sql, 1个写在注解中, 一个写在xml中), 直接运行 com.dsf.mp.start.dao.Mp04SelectTest.selectMyCustomer0101/selectMyCustomer0102 就能看到这个例子的效果.
 
-## 03-02
+## 04-02
+完成 BaseMapper查询 的2个例子(2个分页查询+1个多表分页查询), 直接运行 com.dsf.mp.start.dao.Mp04SelectTest.selectMyCustomer0201/selectMyCustomer0202 就能看到这个例子的效果.
+
 
 
 # 小结
@@ -14,6 +16,21 @@
 1. dao中先写方法
 2. xml中写对应的sql
 3. application.yml中mybatis-plus.mapper-locations
+
+## 04-02
+最开始, 提到了mybatis的分页(rowBounds分页, 不是物理分页, 是逻辑分页或者叫内存分页), Mybatis-plus的分页插件(物理分页);
+
+配置mp分页插件的方法->注入一个PaginationInterceptor类, 详见MybatisPlusConfig.java
+
+BaseMapper 中的 selectPage 和 selectMapsPage, 主要的一个区别就是getRecords方法返回的时候, 一个是实体的list, 一个是map的list.
+
+## selectMyCustomer0201
+完成了 selectPage 和 selectMapsPage 这2个分页查询的方法(单表的分页查询, 是用自带方法实现)
+
+
+## selectMyCustomer0202
+完成了 单表的分页查询, 是用自定义xml实现
+
 
 
 # 采坑点?
