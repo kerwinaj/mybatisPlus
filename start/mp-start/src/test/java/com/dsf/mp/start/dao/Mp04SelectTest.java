@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dsf.mp.start.StartApp;
 import com.dsf.mp.start.entity.User;
+import com.dsf.mp.start.vo.UserVo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class Mp04SelectTest {
     @Autowired
     UserMapper0402 userMapper0402;
 
+    /**
+     * 单表的查询, 自定义sql(注解)
+     */
     @Test
     public void selectMyCustomer0101() {
         QueryWrapper<User> query = new QueryWrapper<>();
@@ -33,6 +37,9 @@ public class Mp04SelectTest {
         list.forEach(System.out::println);
     }
 
+    /**
+     * 单表的查询, 自定义sql(xml)
+     */
     @Test
     public void selectMyCustomer0102() {
         QueryWrapper<User> query = new QueryWrapper<>();
@@ -42,6 +49,9 @@ public class Mp04SelectTest {
         list.forEach(System.out::println);
     }
 
+    /**
+     * 单表的分页查询, 是用自带方法实现
+     */
     @Test
     public void selectMyCustomer0201() {
         QueryWrapper<User> query = new QueryWrapper<>();
@@ -70,6 +80,9 @@ public class Mp04SelectTest {
         });
     }
 
+    /**
+     * 单表的分页查询, 是用自定义xml实现
+     */
     @Test
     public void selectMyCustomer0202() {
         QueryWrapper<User> query = new QueryWrapper<>();
@@ -82,4 +95,28 @@ public class Mp04SelectTest {
         System.out.println("selectPage总记录数" + userIPage.getTotal());
         userIPage.getRecords().forEach(System.out::println);
     }
+
+    /**
+     * 自定义多表联查并分页
+     *
+     * ps: 本人认为，多表联查使用exists比使用join效率较高、通用性更强、sql语句更简单，
+     * 虽然只查出单个主表的数据，但是业务层中可以根据需要，通过主表id再次查询出关联子表的对应页数据
+     * 当然也可以在web端做异步访问查询，以防止一次查询出数据太多、耗时过长降低用户体验
+     */
+    @Test
+    public void selectMyCustomer0202Self() {
+        UserVo userVo = new UserVo();
+        userVo.setAgeStart(25);
+        userVo.setHobby("学");
+
+        Page<User> page = new Page<> (1,2);
+        userMapper0402.selectUserPage0402Self(page,userVo);
+
+        System.out.println("总页数："+page.getPages());
+        System.out.println("总记录数："+page.getTotal());
+        List<User> list = page.getRecords();
+        list.forEach(System.out::println);
+    }
+
+
 }

@@ -3,7 +3,7 @@
 完成 BaseMapper查询 的2个例子(使用条件构造器的自定义sql, 1个写在注解中, 一个写在xml中), 直接运行 com.dsf.mp.start.dao.Mp04SelectTest.selectMyCustomer0101/selectMyCustomer0102 就能看到这个例子的效果.
 
 ## 04-02
-完成 BaseMapper查询 的2个例子(2个分页查询+1个多表分页查询), 直接运行 com.dsf.mp.start.dao.Mp04SelectTest.selectMyCustomer0201/selectMyCustomer0202 就能看到这个例子的效果.
+完成 BaseMapper查询 的2个例子(2个分页查询+2个多表分页查询), 直接运行 com.dsf.mp.start.dao.Mp04SelectTest.selectMyCustomer0201/selectMyCustomer0202/selectMyCustomer0202Self 就能看到这个例子的效果.
 
 
 

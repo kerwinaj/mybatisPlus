@@ -37,14 +37,12 @@
     <!--自定义分页-->
     <select id="selectUserPage0402" resultType="com.dsf.mp.start.entity.User">
         select * from `user` ${ew.customSqlSegment}
-
     </select>
 
     <!--自定义分页+多表联查-->
-    <select id="selectUserPage0403" resultType="com.dsf.mp.start.entity.User">
+    <select id="selectUserPage0402Self" resultType="com.dsf.mp.start.entity.User">
         select *
         from `user`
         <include refid="Where_Clause"/>
-
     </select>
 </mapper>
